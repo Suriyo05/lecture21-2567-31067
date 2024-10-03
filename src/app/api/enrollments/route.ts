@@ -29,11 +29,15 @@ export const GET = async () => {
   }
 
   const prisma = getPrisma();
-  const courses = null;
+  const enrollments = await prisma.enrollment.findMany({
+    where: { studentId: studentId },//ด้านหน้าชื่อคีย์ หลังตัวเเปร
+    include: { course: true}
+  });
+
 
   return NextResponse.json({
     ok: true,
-    courses,
+    enrollments: enrollments,
   });
 };
 
